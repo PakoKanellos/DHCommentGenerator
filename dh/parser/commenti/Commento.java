@@ -6,6 +6,7 @@ package dh.parser.commenti;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -20,7 +21,7 @@ import dh.parser.util.InputUtil;
  */
 public abstract class Commento {
 
-	public abstract int scriviCommento(BufferedReader reader,InputUtil input) throws IOException;
+	public abstract int scriviCommento(BufferedReader reader,InputUtil input, FileWriter fw) throws IOException;
 	public abstract BufferedReader leggiFileLocale(String path,String pathMods, String name) throws FileNotFoundException;
 	public abstract BufferedReader leggiFileUpload(InputStream is) throws UnsupportedEncodingException;
 	

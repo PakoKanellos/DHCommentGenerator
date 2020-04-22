@@ -6,6 +6,7 @@ package dh.parser.commenti;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,7 +22,7 @@ public class CommentoMinimale extends Commento {
 
 	String path;
 	String pathMods;
-
+	
 	public String getPath() {
 		return path;
 	}
@@ -39,7 +40,7 @@ public class CommentoMinimale extends Commento {
 	}
 
 	@Override
-	public int scriviCommento(BufferedReader reader,InputUtil input) throws IOException,FileNotFoundException {
+	public int scriviCommento(BufferedReader reader,InputUtil input, FileWriter fileWriter) throws IOException,FileNotFoundException {
 		String line = reader.readLine();
 		
 		boolean idFound = false;
@@ -48,7 +49,7 @@ public class CommentoMinimale extends Commento {
 		
 		StringBuffer stringa = null;
 		
-		input.intestazione();
+		input.intestazione(fileWriter);
 		this.getCommento().append(input.getIntestazione());
 		
 		int counter = 0;
@@ -81,7 +82,8 @@ public class CommentoMinimale extends Commento {
 								+ parseMods(pathMods + "mods.csv",
 										line.substring(line.indexOf('=') + 1)
 												.trim()));
-						System.out.println(stringa);
+						System.out.println(stringa);	
+						fileWriter.write(stringa.toString() + "\n");
 						this.getCommento().append(stringa + "\n");
 						counter++;
 						stringa = null;
@@ -91,9 +93,15 @@ public class CommentoMinimale extends Commento {
 			}
 			line = reader.readLine();
 		}
-		this.getCommento().append("----------------" + "\n");
-		this.getCommento().append("Number of events " + counter+ "\n");
+		
+		//serve per l'ultimo log
+		this.getCommento().append("# ----------------" + "\n");
+		this.getCommento().append("# Number of events " + counter+ "\n");
 		this.getCommento().append("" + "\n");
+		fileWriter.write("# ----------------" + "\n");
+		fileWriter.write("# Number of events " + counter+ "\n");
+		fileWriter.write("" + "\n");
+		
 		return counter;
 	}
 

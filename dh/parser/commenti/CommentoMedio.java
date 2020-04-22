@@ -6,6 +6,7 @@ package dh.parser.commenti;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,7 +39,7 @@ public class CommentoMedio extends Commento {
 		this.pathMods = pathMods;
 	}	
 	@Override
-	public int scriviCommento(BufferedReader reader,InputUtil input) throws IOException {
+	public int scriviCommento(BufferedReader reader,InputUtil input, FileWriter fileWriter) throws IOException {
 		String line = reader.readLine();
 		
 		boolean idFound = false;
@@ -49,7 +50,7 @@ public class CommentoMedio extends Commento {
 		
 		StringBuffer stringa = null;
 		
-		input.intestazione();
+		input.intestazione(fileWriter);
 		
 		int counter = 0;
 		while (line != null) {
